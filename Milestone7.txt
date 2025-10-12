@@ -1,0 +1,30 @@
+Milestone 7 — Gameplay Balancing & Testing
+
+Goal: Ensure smooth, fun gameplay with proper difficulty scaling.
+
+
+Sub-Milestone 7.1 — Enemy & Wave Balancing
+Adjust enemy HP, speed, and damage.
+
+ Adjust spawn counts per wave.
+
+ Test wave pacing and difficulty curve.
+
+Sub-Milestone 7.2 — Player Upgrades & Combat
+
+ Test weapon upgrade stacking.
+
+ Test defensive upgrades.
+
+ Ensure no overpowered combination breaks balance.
+
+Sub-Milestone 7.3 — Performance & Bug Testing
+
+ Profile FPS and optimize rendering & pooling.
+
+ Test collisions, projectile pooling, and ECS stability.
+
+ Fix input edge cases and menu navigation bugs.
+
+Deliverable: Gameplay feels tight, balanced, and bug-free.
+

@@ -1,0 +1,43 @@
+Milestone 1 — Project Setup & Core Infrastructure
+
+Goal: Establish the basic LibGDX project, core screens, and essential architecture.
+
+Sub-Milestone 1.1 — Project Initialization
+
+ Configure Gradle dependencies for LibGDX, and asset loading.
+
+ Set up project directory structure as per GDD:
+
+ Constants/
+ Screens/
+ ECS/
+ Game/
+ UI/
+
+
+ Sub-Milestone 1.2 — Constants & Asset Manager
+
+ Create Constants.java for major constants (screen size, player speed, fire rate).
+
+ Create AssetManager singleton class to load textures, sounds, and music.
+
+ Define asset paths for sprites, audio, and UI elements.
+
+
+ Sub-Milestone 1.3 — Base Game Class & Starter Screen
+
+ Implement GameMain.java as entry point (extends Game).
+
+ Implement StarterGameScreen with:
+
+Title
+
+Play & Exit buttons
+
+Basic background animation
+
+ Ensure screen transition from StarterGameScreen → GameScreen.
+
+Deliverable: Blank LibGDX project running with starter screen and working asset loader.
+
+

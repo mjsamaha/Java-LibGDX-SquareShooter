@@ -1,0 +1,32 @@
+Milestone 3 — Enemies & Wave System
+
+Goal: Implement all enemy types, AI behaviors, and wave progression.
+
+Sub-Milestone 3.1 — Enemy Factory & Components
+
+ Create EnemyFactory.java.
+
+ Implement enemy components: EnemyComponent, HealthComponent, AIComponent.
+
+Sub-Milestone 3.2 — Enemy Types
+
+ Basic Enemy: moves toward player.
+
+ Zigzag Enemy: oscillating side-to-side while moving forward.
+
+ Shooter Enemy: fires projectiles at player.
+
+ Dasher Enemy: telegraphed dash attack.
+
+ Spread Shooter: multi-projectile spread.
+
+Sub-Milestone 3.3 — Wave Manager
+
+ Implement WaveManager to spawn enemies per wave configuration.
+
+ Implement JSON-driven wave data for easy tweaking.
+
+ Trigger UpgradeOverlayScreen when wave cleared.
+
+Deliverable: All 5 enemy types present, basic AI functional, wave progression works.
+

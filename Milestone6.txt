@@ -1,0 +1,30 @@
+Milestone 6 — Visual & Audio Polish
+
+Goal: Add particles, explosions, sound, and improved UI feedback.
+
+
+Sub-Milestone 6.1 — Particles & Effects
+
+ Implement laser trails (particles).
+
+ Implement explosion animations for enemies & projectiles.
+
+ Implement bullet shield visual.
+
+Sub-Milestone 6.2 — Audio Integration
+
+ Background music loop during gameplay.
+
+ Laser, explosion, wave complete, upgrade, and menu sounds.
+
+ Implement AudioManager for volume control.
+
+Sub-Milestone 6.3 — HUD & UI Polishing
+
+ Animate score updates and wave transitions.
+
+ Highlight upgrade cards on hover/click.
+
+ Add subtle screen shake for explosions/dash attacks.
+
+Deliverable: Game visually appealing with audio feedback for actions.

@@ -1,0 +1,26 @@
+Milestone 4 — Upgrade System
+
+Goal: Implement upgrades as per GDD with inter-wave selection.
+
+Sub-Milestone 4.1 — Upgrade Data & Manager
+
+ Create UpgradeManager.java to handle available upgrades, selection, and application.
+
+ Implement upgrade data structure: name, type, effect, stack limit.
+
+Sub-Milestone 4.2 — Upgrade Overlay Screen
+
+ Implement UpgradeOverlayScreen or overlay UI in GameScreen.
+
+ Display 2–3 random upgrade cards with description and stats.
+
+ Apply selected upgrade to PlayerComponent.
+
+Sub-Milestone 4.3 — Upgrade Effects
+
+ Weapon upgrades: double/triple shot, piercing, fire rate, spread.
+
+ Defensive upgrades: bullet shield, HP boost, speed boost.
+
+Deliverable: Player can select upgrades between waves and see immediate effect.
+

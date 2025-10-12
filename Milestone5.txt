@@ -1,0 +1,20 @@
+Milestone 5 — Death & Game Over Screen
+
+Goal: Implement end-of-run logic and death handling.
+
+
+Sub-Milestone 5.1 — Player Death Detection
+
+ Detect HP <= 0.
+
+ Stop gameplay and pause all systems.
+
+Sub-Milestone 5.2 — DeathScreen
+
+ Display “You Died!” and final score.
+
+ Buttons: Play Again → new GameScreen, Exit to Menu → StarterGameScreen.
+
+ Optional fade-in animation and death sound.
+
+Deliverable: Player death handled cleanly with functional game over screen.

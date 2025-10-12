@@ -1,0 +1,38 @@
+Milestone 2 — Player & Core Gameplay
+
+Goal: Implement player entity, basic movement, shooting, and projectile mechanics.
+
+Sub-Milestone 2.1 — Player Entity & Components
+
+ Implement PlayerComponent (HP, score, current upgrades).
+
+ Implement TransformComponent and VelocityComponent.
+
+ Implement WeaponComponent (fire rate, projectile type).
+
+Sub-Milestone 2.2 — Movement & Rotation
+
+ WASD movement with normalized vector speed.
+
+ Mouse-based aiming system:
+
+Smooth rotation toward cursor using atan2 + optional lerp.
+
+ Player clamping inside screen bounds.
+
+Sub-Milestone 2.3 — Shooting System
+
+ Implement ProjectileFactory to spawn bullets.
+
+ Implement WeaponSystem to handle firing cooldowns.
+
+ Projectile movement and collision component setup.
+
+Sub-Milestone 2.4 — HUD Integration
+
+ Display score, player HP, and basic UI.
+
+ Implement minimal HUD.java class.
+
+Deliverable: Player can move, aim, shoot, and see basic HUD info.
+

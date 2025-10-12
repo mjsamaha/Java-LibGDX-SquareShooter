@@ -1,0 +1,29 @@
+Milestone 8 — Final Touches & Release Preparation
+
+Goal: Prepare the game for a playable release.
+
+
+Sub-Milestone 8.1 — Menus & UX Polish
+
+ Main menu final art + animations.
+
+ Pause menu and settings (volume sliders).
+
+ Smooth screen transitions (fade in/out).
+
+Sub-Milestone 8.2 — Leaderboards & Score Saving
+
+ Implement local high-score tracking.
+
+ Display high scores on menu or end screen.
+
+Sub-Milestone 8.3 — Build & Packaging
+
+ Build desktop runnable JAR.
+
+ Optional: configure Android/iOS export.
+
+ Verify assets are bundled correctly.
+
+Deliverable: Fully polished, playable, and distributable game.
+
