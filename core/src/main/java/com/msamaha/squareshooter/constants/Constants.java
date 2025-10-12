@@ -102,12 +102,24 @@ public final class Constants {
         private Gameplay() {}
     }
 
-    /** Font configuration and sizes */
+    /** Font configuration and sizes - uses FreeType for TTF rendering */
     public static final class Fonts {
+        // Font sizes for different UI elements
         public static final int UI_SIZE = 24;
         public static final int HUD_SIZE = 16;
         public static final int TITLE_SIZE = 48;
         public static final int SCORE_SIZE = 32;
+
+        // FreeType generation parameters
+        public static final int BORDER_WIDTH = 1;
+        public static final float BORDER_WIDTH_FLOAT = 0.5f;
+        public static final float GAMMA = 1.8f; // Smoothing parameter
+        public static final boolean FLIP = false; // Don't flip textures
+
+        // Minecraft font specific parameters
+        public static final int SHADOW_OFFSET_X = 1;
+        public static final int SHADOW_OFFSET_Y = 1;
+        public static final float SHADOW_OPACITY = 0.5f;
 
         private Fonts() {}
     }

@@ -11,6 +11,6 @@ public class SquareShooter extends Game {
         // Initialize asset manager and load all assets
         AssetManager.getInstance().loadAllAssets();
 
-        setScreen(new StarterGameScreen());
+        setScreen(new StarterGameScreen(this));
     }
 }
