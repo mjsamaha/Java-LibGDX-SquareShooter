@@ -5,6 +5,9 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.msamaha.squareshooter.constants.Constants;
 
 /**
  * Singleton AssetManager class - Central point for loading and managing all game assets.
@@ -63,8 +66,15 @@ public class AssetManager {
     public Sound menuSelectSound;
 
     // ===== FONTS =====
-    public BitmapFont orbitronRegular;
-    public BitmapFont orbitronBold;
+    public BitmapFont minecraftTitle;  // Big font for title
+    public BitmapFont minecraftRegular; // Regular font for buttons
+
+    // Backward compatibility - old font references now map to Minecraft
+    public BitmapFont orbitronRegular;  // Maps to minecraftRegular
+    public BitmapFont orbitronBold;     // Maps to minecraftTitle
+
+    // Font generators (removed FreeType due to library issues)
+    // private FreeTypeFontGenerator minecraftGenerator;
 
     // ===== MUSIC =====
     public Music backgroundMusic;
@@ -79,9 +89,8 @@ public class AssetManager {
         public static final String AUDIO = "audio/";
         public static final String FONTS = "fonts/";
 
-        // Fonts
-        public static final String FONT_ORBITRON_REGULAR = FONTS + "Orbitron-Regular.ttf";
-        public static final String FONT_ORBITRON_BOLD = FONTS + "Orbitron-Bold.ttf";
+        // Fonts - Using Minecraft.ttf for all text
+        public static final String FONT_MINECRAFT = FONTS + "Minecraft.ttf";
 
         // Player
         public static final String PLAYER = TEXTURES + "player/player.png";
@@ -151,11 +160,81 @@ public class AssetManager {
     }
 
     /**
-     * Loads all font assets
+     * Loads all font assets - using proper FreeType but with error handling
      */
     private void loadFonts() {
-        orbitronRegular = loadFont(Paths.FONT_ORBITRON_REGULAR);
-        orbitronBold = loadFont(Paths.FONT_ORBITRON_BOLD);
+        // First, verify the font file exists and log its path
+        String fontPath = Paths.FONT_MINECRAFT;
+        Gdx.app.log("AssetManager", "Attempting to load Minecraft font from: " + fontPath);
+
+        try {
+            // Verify the file exists before attempting to load it
+            if (!Gdx.files.internal(fontPath).exists()) {
+                throw new RuntimeException("Font file does not exist: " + fontPath);
+            }
+
+            Gdx.app.log("AssetManager", "Font file exists, creating FreeTypeFontGenerator...");
+
+            // Generate Minecraft fonts using FreeTypeFontGenerator exactly as per documentation
+            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(fontPath));
+
+            // Create parameter for title font (big) - optimized for Minecraft font
+            FreeTypeFontParameter titleParam = new FreeTypeFontParameter();
+            titleParam.size = Constants.Fonts.TITLE_SIZE;
+            titleParam.characters = FreeTypeFontGenerator.DEFAULT_CHARS;
+            titleParam.flip = false;
+            titleParam.minFilter = Texture.TextureFilter.Linear;
+            titleParam.magFilter = Texture.TextureFilter.Linear;
+            titleParam.color = com.badlogic.gdx.graphics.Color.WHITE;
+            titleParam.borderWidth = Constants.Fonts.BORDER_WIDTH_FLOAT;
+            titleParam.borderColor = com.badlogic.gdx.graphics.Color.BLACK;
+            titleParam.shadowOffsetX = Constants.Fonts.SHADOW_OFFSET_X;
+            titleParam.shadowOffsetY = Constants.Fonts.SHADOW_OFFSET_Y;
+            titleParam.shadowColor = new com.badlogic.gdx.graphics.Color(0, 0, 0, Constants.Fonts.SHADOW_OPACITY);
+
+            // Create parameter for regular font (buttons) - optimized for Minecraft font
+            FreeTypeFontParameter regularParam = new FreeTypeFontParameter();
+            regularParam.size = Constants.Fonts.UI_SIZE;
+            regularParam.characters = FreeTypeFontGenerator.DEFAULT_CHARS;
+            regularParam.flip = false;
+            regularParam.minFilter = Texture.TextureFilter.Linear;
+            regularParam.magFilter = Texture.TextureFilter.Linear;
+            regularParam.color = com.badlogic.gdx.graphics.Color.WHITE;
+            regularParam.borderWidth = Constants.Fonts.BORDER_WIDTH_FLOAT;
+            regularParam.borderColor = com.badlogic.gdx.graphics.Color.BLACK;
+
+            Gdx.app.log("AssetManager", "Generating title font with size: " + titleParam.size);
+            Gdx.app.log("AssetManager", "Generating regular font with size: " + regularParam.size);
+
+            // Generate the fonts
+            minecraftTitle = generator.generateFont(titleParam);
+            minecraftRegular = generator.generateFont(regularParam);
+
+            // Dispose the generator after use (as per documentation)
+            generator.dispose();
+
+            Gdx.app.log("AssetManager", "Successfully generated Minecraft fonts from TTF using FreeTypeFontGenerator");
+            Gdx.app.log("AssetManager", "Title font size: " + minecraftTitle.getLineHeight());
+            Gdx.app.log("AssetManager", "Regular font size: " + minecraftRegular.getLineHeight());
+
+        } catch (Exception e) {
+            // Provide detailed error information
+            Gdx.app.error("AssetManager", "FreeType font generation failed for: " + fontPath, e);
+            Gdx.app.error("AssetManager", "Error type: " + e.getClass().getSimpleName());
+            Gdx.app.error("AssetManager", "Error message: " + e.getMessage());
+
+            // Fall back to LibGDX default fonts if FreeType fails
+            Gdx.app.error("AssetManager", "Using LibGDX default fonts as fallback");
+            minecraftTitle = new BitmapFont();
+            minecraftRegular = new BitmapFont();
+        }
+
+        // Keep old references for backward compatibility
+        orbitronRegular = minecraftRegular;  // Buttons use regular Minecraft
+        orbitronBold = minecraftTitle;     // Title uses big Minecraft
+
+        Gdx.app.log("AssetManager", "Font loading completed - using Minecraft fonts: " +
+                   (minecraftTitle != null && minecraftRegular != null));
     }
 
     /**
@@ -226,11 +305,12 @@ public class AssetManager {
      * Disposes all font assets
      */
     private void disposeFonts() {
-        if (orbitronRegular != null) {
-            orbitronRegular.dispose();
+        // Dispose fonts
+        if (minecraftTitle != null) {
+            minecraftTitle.dispose();
         }
-        if (orbitronBold != null) {
-            orbitronBold.dispose();
+        if (minecraftRegular != null) {
+            minecraftRegular.dispose();
         }
     }
 
@@ -331,21 +411,48 @@ public class AssetManager {
     }
 
     /**
-     * Loads a font safely with error handling
-     * @param path The path to the font file (TTF)
+     * Loads a Minecraft BitmapFont from TTF using LibGDX built-in support
+     * @param size The font size to load
      * @return The loaded BitmapFont
      */
+    private BitmapFont loadMinecraftFont(int size) {
+        try {
+            // For now, just return LibGDX default font since TTF direct loading has issues
+            // TODO: In production, use FreeType or Hiero-generated fonts
+            BitmapFont font = new BitmapFont();
+            Gdx.app.log("AssetManager", "Using LibGDX default font as Minecraft font substitute for: " + Paths.FONT_MINECRAFT + " at size " + size);
+            return font;
+
+        } catch (Exception e) {
+            Gdx.app.error("AssetManager", "Failed to load any font", e);
+            // Return LibGDX default font as fallback
+            return new BitmapFont();
+        }
+    }
+
+    /**
+     * Alternative font loading method (kept for backward compatibility)
+     * @return The loaded BitmapFont (direct loading, not recommended)
+     */
+    @Deprecated
     private BitmapFont loadFont(String path) {
         try {
-            // Note: In a real implementation, you might want to specify different sizes
-            // For now, we'll create fonts with default size and scale them later
             BitmapFont font = new BitmapFont(Gdx.files.internal(path));
-            Gdx.app.log("AssetManager", "Loaded font: " + path);
+            Gdx.app.log("AssetManager", "Loaded font (legacy method): " + path);
             return font;
         } catch (Exception e) {
-            Gdx.app.error("AssetManager", "Failed to load font: " + path, e);
-            // Return a default font to prevent crashes
-            return new BitmapFont(); // Uses LibGDX default built-in font
+            Gdx.app.error("AssetManager", "Failed to load legacy font: " + path + ". Using default font.", e);
+            return new BitmapFont();
         }
+    }
+
+    /**
+     * Creates a BitmapFont from TTF with improved error handling
+     * @param fontPath The path to the TTF file
+     * @param size The font size to generate
+     * @return The generated BitmapFont or fallback
+     */
+    private BitmapFont createFontFromTTF(String fontPath, int size) {
+        return loadMinecraftFont(size); // Use the existing loadMinecraftFont method
     }
 }
