@@ -24,6 +24,7 @@ import com.badlogic.gdx.graphics.Color;
  * @author Matthew Samaha
  * @version 1.0
  * @since 2025-10-12
+ * @see <a href="https://github.com/msamaha/libgdx-arcade-game-template">LibGDX Arcade Game Template</a>
  */
 
 public final class Constants {
