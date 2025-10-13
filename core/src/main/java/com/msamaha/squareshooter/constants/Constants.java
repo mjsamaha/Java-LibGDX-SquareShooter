@@ -52,8 +52,8 @@ public final class Constants {
 
     /** Player configuration */
     public static final class Player {
-        public static final float WIDTH = 32f;
-        public static final float HEIGHT = 32f;
+        public static final float WIDTH = 64f;
+        public static final float HEIGHT = 64f;
         public static final float SPEED = 300f;
         public static final float SHOOT_COOLDOWN = 0.25f;
         public static final int MAX_HEALTH = 100;
@@ -85,7 +85,7 @@ public final class Constants {
 
     /** Projectile configuration */
     public static final class Projectile {
-        public static final float WIDTH = 4f;
+        public static final float WIDTH = 16f;
         public static final float HEIGHT = 16f;
         public static final float SPEED = 400f;
         public static final int DAMAGE = 10;

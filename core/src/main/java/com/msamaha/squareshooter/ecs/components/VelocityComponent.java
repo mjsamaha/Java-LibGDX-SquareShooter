@@ -67,7 +67,7 @@ public class VelocityComponent {
 
     /**
      * Set velocity from direction and speed
-     * @param direction Direction vector (will be normalized)
+     * @param directionX Direction vector (will be normalized)
      * @param speed Movement speed
      */
     public void setVelocityFromDirection(float directionX, float directionY, float speed) {
