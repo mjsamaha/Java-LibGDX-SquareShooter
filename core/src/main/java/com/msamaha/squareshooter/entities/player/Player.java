@@ -2,6 +2,7 @@ package com.msamaha.squareshooter.entities.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -13,8 +14,10 @@ import com.msamaha.squareshooter.ecs.components.TransformComponent;
 import com.msamaha.squareshooter.ecs.components.VelocityComponent;
 import com.msamaha.squareshooter.ecs.components.WeaponComponent;
 import com.msamaha.squareshooter.ecs.entities.BaseEntity;
+import com.msamaha.squareshooter.entities.EntityManager;
 import com.msamaha.squareshooter.entities.projectile.Projectile;
 import com.msamaha.squareshooter.game.AssetManager;
+import com.msamaha.squareshooter.game.ProjectileFactory;
 
 /**
  * Player - The player-controlled ship entity.
@@ -42,10 +45,13 @@ public class Player extends BaseEntity {
     private final WeaponComponent weaponComponent;
 
     /** Projectile factory for creating bullets */
-    private final com.msamaha.squareshooter.game.ProjectileFactory projectileFactory;
+    private final ProjectileFactory projectileFactory;
+
+    /** Entity manager reference for adding projectiles */
+    private EntityManager entityManager;
 
     /** Camera reference for mouse position calculations */
-    private com.badlogic.gdx.graphics.Camera camera;
+    private Camera camera;
 
     /** Temporary vector for movement calculations */
     private final Vector2 movementDirection;
@@ -110,14 +116,11 @@ public class Player extends BaseEntity {
             return;
         }
 
-        // Draw player with rotation and scaling
+        // Draw player upright (no rotation) - player should always face upright
         batch.draw(
             texture,
             transform.x, transform.y,
-            Constants.Player.WIDTH / 2f, Constants.Player.HEIGHT / 2f, // Origin (center)
-            Constants.Player.WIDTH, Constants.Player.HEIGHT,           // Size
-            transform.scale, transform.scale,                         // Scale
-            transform.rotation                                           // Rotation
+            Constants.Player.WIDTH, Constants.Player.HEIGHT           // Size (no rotation)
         );
 
         // Optional: Add visual effects for invincibility
@@ -210,8 +213,15 @@ public class Player extends BaseEntity {
         Gdx.app.log("Player", "Firing " + projectiles.length + " projectiles - Type: " +
                     weaponComponent.getProjectileType() + ", Weapon Level: " + weaponComponent.getWeaponLevel());
 
-        // TODO: Add projectiles to EntityManager when we integrate with GameScreen
-        // For now, just create them (they'll be garbage collected)
+        // Add projectiles to EntityManager if available
+        if (entityManager != null) {
+            for (Projectile projectile : projectiles) {
+                entityManager.addEntity(projectile);
+            }
+            Gdx.app.log("Player", "Added " + projectiles.length + " projectiles to EntityManager");
+        } else {
+            Gdx.app.log("Player", "Warning: No EntityManager reference - projectiles not managed");
+        }
     }
 
     /**
@@ -275,8 +285,16 @@ public class Player extends BaseEntity {
      * Set camera for mouse position calculations
      * @param camera Camera reference
      */
-    public void setCamera(com.badlogic.gdx.graphics.Camera camera) {
+    public void setCamera(Camera camera) {
         this.camera = camera;
+    }
+
+    /**
+     * Set entity manager for projectile management
+     * @param entityManager Entity manager reference
+     */
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     // ===== GETTERS =====

@@ -158,14 +158,11 @@ public class Projectile extends BaseEntity {
             return;
         }
 
-        // Draw projectile with rotation
+        // Draw projectile as square (no rotation) - maintain square shape
         batch.draw(
             texture,
             transform.x, transform.y,
-            Constants.Projectile.WIDTH / 2f, Constants.Projectile.HEIGHT / 2f, // Origin (center)
-            Constants.Projectile.WIDTH, Constants.Projectile.HEIGHT,           // Size
-            transform.scale, transform.scale,                                 // Scale
-            transform.rotation                                                    // Rotation
+            Constants.Projectile.WIDTH, Constants.Projectile.HEIGHT           // Size (no rotation)
         );
     }
 
