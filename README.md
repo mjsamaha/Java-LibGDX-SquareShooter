@@ -103,37 +103,6 @@ Defensive Upgrades
 | **Pause**             | ESC               |
 | **Upgrade Selection** | Mouse Click       |
 
-
-## Project Structure
-
-core/src/com/squareshooter
-│
-├── GameMain.java
-├── constants/
-│   └── G.java
-├── screens/
-│   ├── StarterGameScreen.java
-│   ├── GameScreen.java
-│   ├── UpgradeOverlayScreen.java
-│   └── DeathScreen.java
-├── ecs/
-│   ├── Entity.java
-│   ├── Component.java
-│   ├── System.java
-│   ├── components/
-│   ├── systems/
-│   └── managers/
-├── game/
-│   ├── WaveManager.java
-│   ├── UpgradeManager.java
-│   ├── PlayerFactory.java
-│   ├── EnemyFactory.java
-│   └── ProjectileFactory.java
-└── ui/
-    ├── HUD.java
-    └── UpgradeOverlay.java
-
-
 ---
 
 ## Screen Designs
